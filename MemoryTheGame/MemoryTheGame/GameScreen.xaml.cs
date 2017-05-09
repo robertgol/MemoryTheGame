@@ -20,6 +20,8 @@ namespace MemoryTheGame
         //jak ustylizowac buttony zeby lepiej wygladaly na kazdym poziomie trudnosci
         //roblem z pusta baza danych przy otwieraniu listview
         //
+        //test
+        //
         //  easy   medium    hard
         //12 3x4 / 16 4x4 / 20 4x5
 
