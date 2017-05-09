@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MemoryTheGame.HighScoreSreen"
+            x:Name="tabbedPage">
+    <ContentPage Title="Easy" x:Name="easyPage">
+        <ListView x:Name="easyListView" ItemSelected="easyListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage>
+    <ContentPage Title="Medium" x:Name="mediumPage">
+        <ListView x:Name="mediumListView" ItemSelected="mediumListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage>
+    <ContentPage Title="Hard" x:Name="hardPage">
+        <ListView x:Name="hardListView" ItemSelected="hardListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage>
+</TabbedPage>
