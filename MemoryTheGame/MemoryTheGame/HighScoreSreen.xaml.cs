@@ -13,7 +13,7 @@ namespace MemoryTheGame
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
-    class Highscores
+    public class Highscores
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -81,6 +81,20 @@ namespace MemoryTheGame
         private void hardListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             hardListView.SelectedItem = null;
+        }
+
+        private async void allListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+            {
+                return;
+            }
+
+            var listView = sender as ListView;
+            var highscore = e.SelectedItem as Highscores;
+            await Navigation.PushModalAsync(new HighScoreDetail(highscore));
+
+            listView.SelectedItem = null;
         }
     }
 }
