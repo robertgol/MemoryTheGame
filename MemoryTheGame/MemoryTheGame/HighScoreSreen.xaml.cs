@@ -21,6 +21,7 @@ namespace MemoryTheGame
         public int moves { get; set; }
         public DateTime dateTime { get; set; }
         public string difficulty { get; set; }
+        public string playerName { get; set; }
     }
 
     public partial class HighScoreSreen : TabbedPage

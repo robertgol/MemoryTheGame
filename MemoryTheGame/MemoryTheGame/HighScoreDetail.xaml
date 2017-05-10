@@ -4,7 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MemoryTheGame.HighScoreDetail">
     <StackLayout>
-        <Label Text="{Binding score}"/>
-        <Label Text="{Binding moves}"/>
+        <Label Text="{Binding Id, StringFormat='Id:{0}'}"/>
+        <Label Text="{Binding score, StringFormat='Score: {0:N}'}"/>
+        <Label Text="{Binding moves, StringFormat='Moves: {0}'}"/>
+        <Label Text="{Binding dateTime, StringFormat='Date: {0:MMM dd, yyyy}'}"/>
+        <Label Text="{Binding dateTime, StringFormat='Time: {0:H:mm:ss}'}"/>
+        <Label Text="{Binding playerName, StringFormat='Player Name: {0}'}"/>
     </StackLayout>
 </ContentPage>

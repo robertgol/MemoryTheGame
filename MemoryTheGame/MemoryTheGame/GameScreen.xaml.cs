@@ -273,7 +273,7 @@ namespace MemoryTheGame
 
             stopwatch.Reset();
 
-            var newScore = new Highscores { score = score, moves = moves, difficulty = currentDifficulty };
+            var newScore = new Highscores { score = score, moves = moves, difficulty = currentDifficulty, dateTime = DateTime.Now, playerName = "Rob" };
             await _connection.InsertAsync(newScore);
 
             var result = await DisplayActionSheet(String.Format("You won! Score: {0:F}", score), null, null, "Play Again", "Menu", "High Scores");
