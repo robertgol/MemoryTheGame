@@ -7,10 +7,10 @@
         <Label Text="Memory The Game" FontSize="Large" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand"/>
         <Label Text="Choose Difficulty:" FontSize="Default" HorizontalTextAlignment="Center" VerticalOptions="EndAndExpand"/>
         <StackLayout VerticalOptions="StartAndExpand">
-            <Button Text="Easy" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
-            <Button Text="Medium" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
-            <Button Text="Hard" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
-            <Button Text="High Scores" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Margin="0, 30, 0, 0" Clicked="HighScores_Clicked"/>
+            <Button Text="Easy" TextColor="Green" BackgroundColor="White" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
+            <Button Text="Medium" TextColor="Orange" BackgroundColor="White" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
+            <Button Text="Hard" TextColor="Red" BackgroundColor="White" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Clicked="Button_Clicked"/>
+            <Button Text="High Scores" TextColor="#2196F3" BackgroundColor="White" HeightRequest="50" WidthRequest="150" HorizontalOptions="Center" Margin="0, 30, 0, 0" Clicked="HighScores_Clicked"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

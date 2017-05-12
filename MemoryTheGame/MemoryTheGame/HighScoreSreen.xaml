@@ -8,28 +8,52 @@
         <ToolbarItem Text="Clear Highscores" Order="Secondary" Activated="ToolbarItem_Activated"/>
     </TabbedPage.ToolbarItems>
     <ContentPage Title="Easy" x:Name="easyPage">
-        <ListView x:Name="easyListView" ItemSelected="allListView_ItemSelected">
+        <ListView x:Name="easyListView" ItemSelected="allListView_ItemSelected" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="8, 5, 0, 5">
+                            <StackLayout>
+                                <Label Text="{Binding score, StringFormat='Score: {0:N}'}" FontSize="Medium" TextColor="DeepPink"/>
+                                <Label Text="{Binding moves, StringFormat='Moves: {0}'}" FontSize="Small" TextColor="Gray"/>
+                            </StackLayout>
+                            <Label Text="{Binding playerName}" FontSize="Large" TextColor="#2196F3" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </ContentPage>
     <ContentPage Title="Medium" x:Name="mediumPage">
-        <ListView x:Name="mediumListView" ItemSelected="allListView_ItemSelected">
+        <ListView x:Name="mediumListView" ItemSelected="allListView_ItemSelected" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="8, 5, 0, 5">
+                            <StackLayout>
+                                <Label Text="{Binding score, StringFormat='Score: {0:N}'}" FontSize="Medium" TextColor="DeepPink"/>
+                                <Label Text="{Binding moves, StringFormat='Moves: {0}'}" FontSize="Small" TextColor="Gray"/>
+                            </StackLayout>
+                            <Label Text="{Binding playerName}" FontSize="Large" TextColor="#2196F3" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </ContentPage>
     <ContentPage Title="Hard" x:Name="hardPage">
-        <ListView x:Name="hardListView" ItemSelected="allListView_ItemSelected">
+        <ListView x:Name="hardListView" ItemSelected="allListView_ItemSelected" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Padding="8, 5, 0, 5">
+                            <StackLayout>
+                                <Label Text="{Binding score, StringFormat='Score: {0:N}'}" FontSize="Medium" TextColor="DeepPink"/>
+                                <Label Text="{Binding moves, StringFormat='Moves: {0}'}" FontSize="Small" TextColor="Gray"/>
+                            </StackLayout>
+                            <Label Text="{Binding playerName}" FontSize="Large" TextColor="#2196F3" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

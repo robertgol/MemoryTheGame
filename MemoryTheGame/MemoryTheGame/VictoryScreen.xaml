@@ -9,9 +9,9 @@
         <Label x:Name="timeLabel" HorizontalTextAlignment="Center"/>
         <Entry x:Name="entry" Placeholder="Enter your name..." Margin="0, 20"/>
         <StackLayout Margin="0, 50">
-            <Button Text="Play Again" Clicked="PlayAgain_Clicked"/>
-            <Button Text="Main Menu" Clicked="Menu_Clicked"/>
-            <Button Text="Highscores" Clicked="Highscores_Clicked"/>
+            <Button Text="Play Again" TextColor="White" BackgroundColor="#2196F3" Clicked="PlayAgain_Clicked"/>
+            <Button Text="Main Menu" TextColor="White" BackgroundColor="#2196F3" Clicked="Menu_Clicked"/>
+            <Button Text="Highscores" TextColor="White" BackgroundColor="#2196F3" Clicked="Highscores_Clicked"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>
