@@ -50,38 +50,15 @@ namespace MemoryTheGame
         protected async override void OnAppearing()
         {
             var highscores = await _connection.Table<Highscores>().ToListAsync();
+
             if (highscores.Count > 0)
             {
                 var sortedHighscores = highscores.OrderByDescending(o => o.score).ToList();
 
-                if (sortedHighscores.Exists(e => e.difficulty == "easy"))
-                {
-                    easyListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "easy").ToList();
-                }
-                if (sortedHighscores.Exists(e => e.difficulty == "medium"))
-                {
-                    mediumListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "medium").ToList();
-                }
-                if (sortedHighscores.Exists(e => e.difficulty == "hard"))
-                {
-                    hardListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "hard").ToList();
-                }
+                easyListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "easy").ToList();
+                mediumListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "medium").ToList();
+                hardListView.ItemsSource = sortedHighscores.Where(s => s.difficulty == "hard").ToList();
             }
-        }
-
-        private void easyListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            easyListView.SelectedItem = null;
-        }
-
-        private void mediumListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            mediumListView.SelectedItem = null;
-        }
-
-        private void hardListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            hardListView.SelectedItem = null;
         }
 
         private async void allListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -93,9 +70,23 @@ namespace MemoryTheGame
 
             var listView = sender as ListView;
             var highscore = e.SelectedItem as Highscores;
-            await Navigation.PushModalAsync(new HighScoreDetail(highscore));
+            await Navigation.PushModalAsync(new NavigationPage(new HighScoreDetail(highscore)));
 
             listView.SelectedItem = null;
+        }
+
+        private async void ToolbarItem_Activated(object sender, EventArgs e)
+        {
+            var result = await DisplayAlert("Clear Highscores", "Do you want to remove all the highscores?", "Yes", "No");
+
+            if (result)
+            {
+                var highscores = await _connection.Table<Highscores>().ToListAsync();
+                foreach (var item in highscores)
+                {
+                    await _connection.DeleteAsync(item);
+                }
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace MemoryTheGame
         //jak schowac buttony w modzie easy
         //jak ustylizowac buttony zeby lepiej wygladaly na kazdym poziomie trudnosci
         //roblem z pusta baza danych przy otwieraniu listview
+        //pushing navigation from modal
         //
         //test
         //
@@ -288,7 +289,7 @@ namespace MemoryTheGame
             else if (result == "High Scores")
             {
                 Navigation.PopModalAsync();
-                await Navigation.PushModalAsync(new HighScoreSreen(currentDifficulty));
+                await Navigation.PushModalAsync(new NavigationPage(new HighScoreSreen(currentDifficulty)));
             }
         }
 

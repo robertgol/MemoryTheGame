@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MemoryTheGame.HighScoreSreen"
+<TabbedPage Title="Highscores"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MemoryTheGame.HighScoreSreen"
             x:Name="tabbedPage">
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Text="Clear Highscores" Order="Secondary" Activated="ToolbarItem_Activated"/>
+    </TabbedPage.ToolbarItems>
     <ContentPage Title="Easy" x:Name="easyPage">
         <ListView x:Name="easyListView" ItemSelected="allListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -16,7 +20,7 @@
         <ListView x:Name="mediumListView" ItemSelected="allListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -25,7 +29,7 @@
         <ListView x:Name="hardListView" ItemSelected="allListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding score, StringFormat='Score:{0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
+                    <TextCell Text="{Binding score, StringFormat='Score: {0:N}'}" Detail="{Binding moves, StringFormat='Moves: {0}'}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

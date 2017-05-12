@@ -25,7 +25,7 @@ namespace MemoryTheGame
 
         private async void HighScores_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new HighScoreSreen("medium"));
+            await Navigation.PushModalAsync(new NavigationPage(new HighScoreSreen("medium")));
         }
     }
 }
