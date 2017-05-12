@@ -272,29 +272,33 @@ namespace MemoryTheGame
                     break;
             }
 
+            var timePassed = String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Minutes.ToString(), stopwatch.Elapsed.Seconds.ToString(), stopwatch.Elapsed.Milliseconds);
+
             stopwatch.Reset();
 
-            var newScore = new Highscores { score = score, moves = moves, difficulty = currentDifficulty, dateTime = DateTime.Now, playerName = "Rob" };
-            await _connection.InsertAsync(newScore);
+            //var newScore = new Highscores { score = score, moves = moves, difficulty = currentDifficulty, dateTime = DateTime.Now, playerName = "Rob", duration = timePassed };
+            //await _connection.InsertAsync(newScore);
 
-            var result = await DisplayActionSheet(String.Format("You won! Score: {0:F}", score), null, null, "Play Again", "Menu", "High Scores");
-            if (result == "Play Again")
-            {
-                ResetGame();
-            }
-            else if (result == "Menu")
-            {
-                await Navigation.PopModalAsync();
-            }
-            else if (result == "High Scores")
-            {
-                Navigation.PopModalAsync();
-                await Navigation.PushModalAsync(new NavigationPage(new HighScoreSreen(currentDifficulty)));
-            }
+            //var result = await DisplayActionSheet(String.Format("You won! Score: {0:F}", score), null, null, "Play Again", "Menu", "High Scores");
+            //if (result == "Play Again")
+            //{
+            //    ResetGame();
+            //}
+            //else if (result == "Menu")
+            //{
+            //    await Navigation.PopModalAsync();
+            //}
+            //else if (result == "High Scores")
+            //{
+            //    Navigation.PopModalAsync();
+            //    await Navigation.PushModalAsync(new NavigationPage(new HighScoreSreen(currentDifficulty)));
+            //}
+
+            await Navigation.PushModalAsync(new VictoryScreen(currentDifficulty, score, moves, timePassed));
         }
 
         //reset all the things and let player start a new game
-        private void ResetGame()
+        public void ResetGame()
         {
             movesLabel.Text = "Moves: 0";
             timeLabel.Text = "Time: 0:00:00";
