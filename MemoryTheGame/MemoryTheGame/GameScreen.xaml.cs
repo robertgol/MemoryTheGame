@@ -12,16 +12,12 @@ namespace MemoryTheGame
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GameScreen : ContentPage
     {
-        //czemu async await daje warningi
         //co z aktualizowaniem labela przez timer
         //if else na switch z Color.Example albo inna metoda?
         //ostatni kolor z listy zawsze jest przypisany do ostatniego buttona
-        //jak schowac buttony w modzie easy
-        //jak ustylizowac buttony zeby lepiej wygladaly na kazdym poziomie trudnosci
-        //roblem z pusta baza danych przy otwieraniu listview
+        //problem z pusta baza danych przy otwieraniu listview
         //pushing navigation from modal
-        //
-        //test
+        //transparent button?
         //
         //  easy   medium    hard
         //12 3x4 / 16 4x4 / 20 4x5
@@ -93,7 +89,7 @@ namespace MemoryTheGame
         }
 
         //create new buttons and puts them in the grid
-        private void CreateButtons(int howMany = 16)
+        private void CreateButtons(int howMany)
         {
             buttons = new MyButton[howMany];
             iterator = 0;
@@ -123,7 +119,10 @@ namespace MemoryTheGame
                     buttons[iterator] = new MyButton();
                     buttons[iterator].Image = "red100x100.png";
                     buttons[iterator].Clicked += GameScreen_Clicked;
-                    buttons[iterator].BackgroundColor = Color.White;
+                    buttons[iterator].BackgroundColor = Color.Transparent;
+                    buttons[iterator].BorderColor = Color.Transparent; //bez efektu
+                    buttons[iterator].HorizontalOptions = LayoutOptions.Center;
+                    buttons[iterator].VerticalOptions = LayoutOptions.Center;
                     AssignButtonHiddenColor(buttons[iterator]);
                     gameGrid.Children.Add(buttons[iterator], i, j);
                     iterator++;
@@ -262,13 +261,13 @@ namespace MemoryTheGame
             switch (currentDifficulty)
             {
                 case "easy":
-                    score *= 0.6;
+                    score *= 0.5;
                     break;
                 case "medium":
-                    score *= 1.2;
+                    score *= 1.4;
                     break;
                 case "hard":
-                    score *= 2.2;
+                    score *= 2.8;
                     break;
             }
 

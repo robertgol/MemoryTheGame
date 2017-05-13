@@ -29,7 +29,7 @@ namespace MemoryTheGame
             _moves = moves;
             _score = score;
 
-            scoreLabel.Text = String.Format("Your score: {0:F}", score);
+            scoreLabel.Text = String.Format("Your score: {0:F0}", score);
             movesLabel.Text = String.Format("Moves: {0}", moves);
             timeLabel.Text = String.Format("Time: {0}", timePassed);
         }

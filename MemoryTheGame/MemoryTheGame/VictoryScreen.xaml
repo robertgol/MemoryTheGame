@@ -7,7 +7,7 @@
         <Label x:Name="scoreLabel" HorizontalTextAlignment="Center"/>
         <Label x:Name="movesLabel" HorizontalTextAlignment="Center"/>
         <Label x:Name="timeLabel" HorizontalTextAlignment="Center"/>
-        <Entry x:Name="entry" Placeholder="Enter your name..." Margin="0, 20"/>
+        <Entry x:Name="entry" Placeholder="Enter your name..." Margin="0, 20" FontSize="Large"/>
         <StackLayout Margin="0, 50">
             <Button Text="Play Again" TextColor="White" BackgroundColor="#2196F3" Clicked="PlayAgain_Clicked"/>
             <Button Text="Main Menu" TextColor="White" BackgroundColor="#2196F3" Clicked="Menu_Clicked"/>
