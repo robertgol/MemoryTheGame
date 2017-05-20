@@ -17,7 +17,6 @@ namespace MemoryTheGame
         //ostatni kolor z listy zawsze jest przypisany do ostatniego buttona
         //problem z pusta baza danych przy otwieraniu listview
         //pushing navigation from modal
-        //transparent button?
         //
         //  easy   medium    hard
         //12 3x4 / 16 4x4 / 20 4x5
@@ -28,7 +27,7 @@ namespace MemoryTheGame
         MyButton clickedButton = new MyButton();
         MyButton[] buttons;
         bool isFinished, isOtherClicked, isNextGame = false;
-        int iterator, moves, toEnd;
+        int index, moves, toEnd;
         string currentDifficulty;
         private SQLiteAsyncConnection _connection;
 
@@ -37,17 +36,14 @@ namespace MemoryTheGame
             InitializeComponent();
 
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            _connection.CreateTableAsync<Highscores>();
 
             currentDifficulty = chosenDifficulty.ToLower();
 
             SetUp(currentDifficulty);
         }
 
-        protected async override void OnAppearing()
-        {
-            await _connection.CreateTableAsync<Highscores>();
-        }
-
+        //ask user if he is sure he wants to go back to main menu
         async void BackPressedAlert()
         {
             var result = await DisplayAlert(null, "Go to the Menu?", "Yes", "No");
@@ -58,12 +54,11 @@ namespace MemoryTheGame
         }
         protected override bool OnBackButtonPressed()
         {
-            //return base.OnBackButtonPressed();
             BackPressedAlert();
             return true;
         }
 
-        //initiall game set up
+        //initial game set up
         private void SetUp(string difficulty)
         {
             moves = 0;
@@ -88,11 +83,11 @@ namespace MemoryTheGame
             }
         }
 
-        //create new buttons and puts them in the grid
+        //create new buttons and add them to the grid
         private void CreateButtons(int howMany)
         {
             buttons = new MyButton[howMany];
-            iterator = 0;
+            index = 0;
 
             int column = 0, row = 0;
 
@@ -116,16 +111,12 @@ namespace MemoryTheGame
             {
                 for (int j = 0; j < row; j++)
                 {
-                    buttons[iterator] = new MyButton();
-                    buttons[iterator].Image = "red100x100.png";
-                    buttons[iterator].Clicked += GameScreen_Clicked;
-                    buttons[iterator].BackgroundColor = Color.Transparent;
-                    buttons[iterator].BorderColor = Color.Transparent; //bez efektu
-                    buttons[iterator].HorizontalOptions = LayoutOptions.Center;
-                    buttons[iterator].VerticalOptions = LayoutOptions.Center;
-                    AssignButtonHiddenColor(buttons[iterator]);
-                    gameGrid.Children.Add(buttons[iterator], i, j);
-                    iterator++;
+                    buttons[index] = new MyButton();
+                    buttons[index].Clicked += GameScreen_Clicked;
+                    buttons[index].BackgroundColor = Color.Gray;
+                    AssignButtonHiddenColor(buttons[index]);
+                    gameGrid.Children.Add(buttons[index], i, j);
+                    index++;
                 }
             }
         }
@@ -137,9 +128,9 @@ namespace MemoryTheGame
             buttonHiddenColors.Add(Color.Brown);
             buttonHiddenColors.Add(Color.Blue);
             buttonHiddenColors.Add(Color.Brown);
-            buttonHiddenColors.Add(Color.Gray);
+            buttonHiddenColors.Add(Color.Red);
             buttonHiddenColors.Add(Color.Green);
-            buttonHiddenColors.Add(Color.Gray);
+            buttonHiddenColors.Add(Color.Red);
             buttonHiddenColors.Add(Color.Green);
             if (isNextGame)
             {
@@ -212,35 +203,35 @@ namespace MemoryTheGame
         {
             foreach (var button in buttons)
             {
-                button.IsEnabled = false;
+                button.InputTransparent = true;
             }
         }
 
         //enable all buttons with red image after x time in ms
-        private async Task EnableAllButtons(int howLong)
+        private async Task EnableGrayButtons(int howLong)
         {
             await Task.Delay(howLong);
             foreach (var button in buttons)
             {
-                if (button.Image == "red100x100.png")
+                if (button.BackgroundColor == Color.Gray)
                 {
-                    button.IsEnabled = true;
+                    button.InputTransparent = false;
                 }
             }
         }
 
         //change specified button image to red after 1s / 1000ms
-        private async Task ChangeImageToRed(MyButton btn)
+        private async Task ChangeColorToGrayAsync(MyButton btn)
         {
             await Task.Delay(1000);
-            btn.Image = "red100x100.png";
+            btn.BackgroundColor = Color.Gray;
         }
 
         //enables specified button after x time in ms
-        private async Task EnableAfter(MyButton button, int howLong)
+        private async Task EnableButtonAsync(MyButton button, int howLong)
         {
             await Task.Delay(howLong);
-            button.IsEnabled = true;
+            button.InputTransparent = false;
         }
 
         //finish the game -> reset stopwatch, stop udpating time label, show alert with score
@@ -274,24 +265,6 @@ namespace MemoryTheGame
             var timePassed = String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Minutes.ToString(), stopwatch.Elapsed.Seconds.ToString(), stopwatch.Elapsed.Milliseconds);
 
             stopwatch.Reset();
-
-            //var newScore = new Highscores { score = score, moves = moves, difficulty = currentDifficulty, dateTime = DateTime.Now, playerName = "Rob", duration = timePassed };
-            //await _connection.InsertAsync(newScore);
-
-            //var result = await DisplayActionSheet(String.Format("You won! Score: {0:F}", score), null, null, "Play Again", "Menu", "High Scores");
-            //if (result == "Play Again")
-            //{
-            //    ResetGame();
-            //}
-            //else if (result == "Menu")
-            //{
-            //    await Navigation.PopModalAsync();
-            //}
-            //else if (result == "High Scores")
-            //{
-            //    Navigation.PopModalAsync();
-            //    await Navigation.PushModalAsync(new NavigationPage(new HighScoreSreen(currentDifficulty)));
-            //}
 
             await Navigation.PushModalAsync(new VictoryScreen(currentDifficulty, score, moves, timePassed));
         }
@@ -331,59 +304,59 @@ namespace MemoryTheGame
                 stopwatch.Start();
             }
 
-            MyButton btn = (MyButton)sender; //reference the button clicked
-            btn.IsEnabled = false; //make it impossible to click
+            MyButton btn = (MyButton)sender;
+            btn.InputTransparent = true;
             movesLabel.Text = String.Format("Moves: {0}", ++moves);
 
 
             if (btn.HiddenColor == Color.Blue)
             {
-                btn.Image = "blue100x100.png";
+                btn.BackgroundColor = Color.Blue;
             }
             else if (btn.HiddenColor == Color.Brown)
             {
-                btn.Image = "brown100x100.png";
+                btn.BackgroundColor = Color.Brown;
             }
-            else if (btn.HiddenColor == Color.Gray)
+            else if (btn.HiddenColor == Color.Red)
             {
-                btn.Image = "gray100x100.png";
+                btn.BackgroundColor = Color.Red;
             }
             else if (btn.HiddenColor == Color.Green)
             {
-                btn.Image = "green100x100.png";
+                btn.BackgroundColor = Color.Green;
             }
             else if (btn.HiddenColor == Color.Orange)
             {
-                btn.Image = "orange100x100.png";
+                btn.BackgroundColor = Color.Orange;
             }
             else if (btn.HiddenColor == Color.Pink)
             {
-                btn.Image = "pink100x100.png";
+                btn.BackgroundColor = Color.Pink;
             }
             else if (btn.HiddenColor == Color.Violet)
             {
-                btn.Image = "violet100x100.png";
+                btn.BackgroundColor = Color.Violet;
             }
             else if (btn.HiddenColor == Color.Yellow)
             {
-                btn.Image = "yellow100x100.png";
+                btn.BackgroundColor = Color.Yellow;
             }
             else if (btn.HiddenColor == Color.SkyBlue)
             {
-                btn.Image = "skyblue100x100.png";
+                btn.BackgroundColor = Color.SkyBlue;
             }
             else if (btn.HiddenColor == Color.Black)
             {
-                btn.Image = "black100x100.png";
+                btn.BackgroundColor = Color.Black;
             }//if else colors, try to find a better way
 
-            //check if any other tile was clicked
-            if (isOtherClicked) //if yes
+            //check if any other button is clicked
+            if (isOtherClicked)
             {
                 DisableAllButtons(); //for safety
                 if (btn.HiddenColor == clickedButton.HiddenColor) //compare colors
                 {
-                    EnableAllButtons(1);
+                    EnableGrayButtons(1);
                     isOtherClicked = false;
 
                     //checking if the game is finished
@@ -394,13 +367,13 @@ namespace MemoryTheGame
                 }
                 else
                 {
-                    EnableAllButtons(100); //delay for safety
-                    ChangeImageToRed(btn); ChangeImageToRed(clickedButton); //reset both tiles color - red
-                    EnableAfter(btn, 900); EnableAfter(clickedButton, 900); //make them clickable again after x ms
+                    EnableGrayButtons(100); //delay for safety
+                    ChangeColorToGrayAsync(btn); ChangeColorToGrayAsync(clickedButton); //reset both buttons color
+                    EnableButtonAsync(btn, 980); EnableButtonAsync(clickedButton, 980); //make them clickable again after x ms
                     isOtherClicked = false;
                 }
             }
-            else //if no
+            else
             {
                 clickedButton = btn; //save current button in temp variable
                 isOtherClicked = true;
